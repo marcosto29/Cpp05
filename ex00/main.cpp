@@ -14,12 +14,12 @@ int main(int argc, char const *argv[])
     }
     burocrata.decrementGrade();
     std::cout << burocrata << "\n";
-    burocrata.incrementGrade();
-    std::cout << burocrata << "\n";
     //como no está controlado el try catch 
     //la función throweara una exepción que no será recogida y dara core dumped
-    burocrata.incrementGrade();
-    std::cout << burocrata << "\n";
+    // burocrata.incrementGrade();
+    // std::cout << burocrata << "\n";
+    // burocrata.incrementGrade();
+    // std::cout << burocrata << "\n";
 
     Bureaucrat burocrata2("nombre2", 1);
     burocrata2 = burocrata;
