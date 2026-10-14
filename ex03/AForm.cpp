@@ -2,39 +2,38 @@
 #include "Bureaucrat.hpp"
 
 // Constructors
-AForm::AForm()
+AForm::AForm() : _name(""), _signedRequired(0), _executeRequired(0)
 {
-	_name = "";
-	_signed = 0;
-	_signedRequired = 0;
-	_executeRequired = 0;
-	std::cout << "\e[0;33mDefault Constructor called of AForm\e[0m" << std::endl;
+	_signed = false;
+	std::cout << "\e[0;33mDefault Constructor called of Form\e[0m" << std::endl;
 }
 
-AForm::AForm(const AForm &copy)
+AForm::AForm(const AForm &copy) : _name(copy.getName()), 
+_signedRequired(copy.getSignedGradeRequired()), 
+_executeRequired(copy.getExecuteGradeRequired())
 {
-	_name = copy.getName();
-	_signed = copy.getSigned();
-	_signedRequired = copy.getSignedGradeRequired();
-	_executeRequired = copy.getExecuteGradeRequired();
+	_signed = false;
 	std::cout << "\e[0;33mCopy Constructor called of AForm\e[0m" << std::endl;
 }
 
-AForm::AForm(std::string name, std::string target, int signRequired, int executeRequired)
+AForm::AForm(std::string name, std::string target, int signRequired, int executeRequired) : _name(name),
+_signedRequired(signRequired), 
+_executeRequired(executeRequired)
 {
-	_name = name;
 	_target = target;
 	_signed = false;
-	_signedRequired = signRequired;
-	_executeRequired = executeRequired;
-	std::cout << "\e[0;33mFields Constructor called of AForm\e[0m" << std::endl;
+	if (signRequired > 150 || executeRequired > 150)
+		throw AForm::GradeTooLowException();
+	if (signRequired < 1 || executeRequired < 1)
+		throw AForm::GradeTooHighException();
+	std::cout << "\e[0;33mFields Constructor called of Form\e[0m" << std::endl;
 }
 
 
 // Destructor
 AForm::~AForm()
 {
-	std::cout << "\e[0;31mDestructor called of AForm\e[0m" << std::endl;
+	std::cout << "\e[0;31mDestructor called of Form\e[0m" << std::endl;
 }
 
 
@@ -42,19 +41,13 @@ AForm::~AForm()
 AForm & AForm::operator=(const AForm &that)
 {
 	if (this != &that)
-	{
-		_name = that._name;
-		_target = that._target;
 		_signed = that._signed;
-		_signedRequired = that._signedRequired;
-		_executeRequired = that._executeRequired;
-	}
 	return *this;
 }
 
 std::ostream &operator<<(std::ostream &out, AForm &f)
 {
-    out << "AForm: " << f.getName() << " "
+    out << "Form: " << f.getName() << " "
 					<< f.getSigned() << " "
 					<< f.getSignedGradeRequired() << " "
 					<< f.getExecuteGradeRequired() << ".\n";

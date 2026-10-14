@@ -55,10 +55,10 @@ class AForm
 		};
 
 	private:
-		std::string _name;
+		const std::string _name;
+		const int _signedRequired;
+		const int _executeRequired;
 		bool _signed;
-		int _signedRequired;
-		int _executeRequired;
 		std::string _target;
 };
 

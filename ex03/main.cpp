@@ -10,7 +10,7 @@ int main(int argc, char *argv[])
 
     AForm *presidentialForm = i->makeForm("PresidentialPardonForm", "marcosto");
     
-    Bureaucrat *b = new Bureaucrat("marcosto", 0);
+    Bureaucrat *b = new Bureaucrat("marcosto", 1);
 
     presidentialForm->beSigned(*b);
     presidentialForm->execute(*b);
